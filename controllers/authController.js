@@ -1,8 +1,8 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken'); // Added JWT package
+const jwt = require('jsonwebtoken');
 
-// Register a new user (You already wrote this!)
+// Register new user
 exports.register = async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -25,24 +25,24 @@ exports.register = async (req, res) => {
     }
 };
 
-// NEW: Login an existing user
+
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // 1. Find the user by email
+        // Find user by email
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        // 2. Check if the password matches the hashed password in DB
+        // Check if password matches
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        // 3. Generate the JWT token
+        // Generate JWT 
         const payload = {
             user: {
                 id: user._id,
@@ -53,7 +53,7 @@ exports.login = async (req, res) => {
         jwt.sign(
             payload,
             process.env.JWT_SECRET,
-            { expiresIn: '1h' }, // Token expires in 1 hour
+            { expiresIn: '1h' },
             (err, token) => {
                 if (err) throw err;
                 res.json({ token, message: 'Logged in successfully!' });

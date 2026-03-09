@@ -1,6 +1,6 @@
 const Portfolio = require('../models/Portfolio');
 
-// Create a new portfolio for the logged-in user
+// Create new portfolio for logged-in user
 exports.createPortfolio = async (req, res) => {
     try {
         let portfolio = await Portfolio.findOne({ user: req.user.id });
@@ -8,7 +8,7 @@ exports.createPortfolio = async (req, res) => {
             return res.status(400).json({ message: 'Portfolio already exists' });
         }
 
-        // Creates portfolio with the default 100,000 balance from the schema
+        // Creates portfolio
         portfolio = new Portfolio({ user: req.user.id });
         await portfolio.save();
 
@@ -19,10 +19,10 @@ exports.createPortfolio = async (req, res) => {
     }
 };
 
-// Get the logged-in user's portfolio
+// Get logged-in user's portfolio
 exports.getPortfolio = async (req, res) => {
     try {
-        // .populate() pulls in the actual stock details, not just the ID
+        // .populate() pulls in the actual stock details
         const portfolio = await Portfolio.findOne({ user: req.user.id }).populate('holdings.stock');
         if (!portfolio) {
             return res.status(404).json({ message: 'Portfolio not found' });

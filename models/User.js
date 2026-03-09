@@ -16,11 +16,11 @@ const userSchema = new mongoose.Schema({
     },
     role: { 
         type: String, 
-        enum: ['user', 'admin'], // Restricts the values to these two
+        enum: ['user', 'admin'], // Restricting values
         default: 'user' 
     }
 }, { 
-    timestamps: true // Automatically adds createdAt and updatedAt dates
+    timestamps: true // Automatically create and update dates
 });
 
 module.exports = mongoose.model('User', userSchema);

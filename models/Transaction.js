@@ -9,7 +9,7 @@ const transactionSchema = new mongoose.Schema({
         required: true 
     },
     quantity: { type: Number, required: true },
-    priceAtTransaction: { type: Number, required: true } // Price locked in at time of trade
+    priceAtTransaction: { type: Number, required: true } // locking price at time of trade
 }, { timestamps: true });
 
 module.exports = mongoose.model('Transaction', transactionSchema);

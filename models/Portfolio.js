@@ -8,7 +8,7 @@ const portfolioSchema = new mongoose.Schema({
     },
     virtualBalance: { 
         type: Number, 
-        default: 100000 // Starting paper trading funds
+        default: 100000 // for demo
     },
     holdings: [{
         stock: { type: mongoose.Schema.Types.ObjectId, ref: 'Stock' },

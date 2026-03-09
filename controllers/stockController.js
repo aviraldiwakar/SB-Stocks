@@ -11,7 +11,7 @@ exports.getAllStocks = async (req, res) => {
     }
 };
 
-// Add a new stock (Later, we can restrict this to 'admin' only)
+// Add a new stock 
 exports.addStock = async (req, res) => {
     try {
         const { symbol, name, currentPrice } = req.body;
@@ -33,15 +33,13 @@ exports.addStock = async (req, res) => {
 // Search stocks by symbol or name
 exports.searchStocks = async (req, res) => {
     try {
-        // We get the search term from the URL query (e.g., ?query=apple)
+
         const searchQuery = req.query.query; 
 
         if (!searchQuery) {
             return res.status(400).json({ message: 'Please provide a search term' });
         }
 
-        // Search the database where the symbol OR the name matches the query
-        // $options: 'i' makes the search case-insensitive
         const stocks = await Stock.find({
             $or: [
                 { symbol: { $regex: searchQuery, $options: 'i' } },
