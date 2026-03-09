@@ -23,6 +23,18 @@ app.get('/', (req, res) => {
 // Auth Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 
+// Stock Routes
+app.use('/api/stocks', require('./routes/stockRoutes'));
+
+// Portfolio Routes
+app.use('/api/portfolio', require('./routes/portfolioRoutes'));
+
+// Transaction Routes
+app.use('/api/transaction', require('./routes/transactionRoutes'));
+
+// Watchlist Routes
+app.use('/api/watchlist', require('./routes/watchlistRoutes'));
+
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
